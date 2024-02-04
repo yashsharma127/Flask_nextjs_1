@@ -95,7 +95,9 @@ const UserInterface: React.FC<UserInterfaceProps> = ({ backendName }) => {
         {users.map((user) => (
           <div key={user.id} className="flex items-center justify-between bg-white p-4 rounded-lg shadow">
             <CardComponent card={user} />
-            
+            <button onClick={() => deleteUser(user.id)} className={`${btnColor} text-white py-2 px-4 rounded`}>
+              Delete User
+            </button>
           </div>
         ))}
       </div>
