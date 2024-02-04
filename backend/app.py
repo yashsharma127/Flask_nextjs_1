@@ -20,3 +20,19 @@ def json(self):
 def test():
     return  "It works!"
 
+@app.route("/users", methods=["POST"])
+def create_user():
+    try:
+        data =  request.get_json()
+        new_user = User(name=data["name"], email=data["email"])
+        db.session.add(new_user)
+        db.session.commit()
+
+        return jsonify({
+            'id': new_user.id,
+            'name': new_user.name,
+            'email': new_user.email
+        }), 201
+    
+    except Exception as e:
+        return make_response(jsonify({'message': 'error creating user', 'error': str(e)}), 500)
