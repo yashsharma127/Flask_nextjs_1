@@ -46,4 +46,14 @@ def get_users():
     except Exception as e:
         return make_response(jsonify({'message':'error getting users', 'error': str(e)}), 500)
     
+@app.route('/api/flask/users/<id>', methods=['GET'])
+def get_user(id):
+    try:
+        user = User.query.filter_by(id=id).first()
+        if user:
+            return make_response (jsonify({'user': user.json()}), 200)
+        return make_response(jsonify({'message': 'user not found'}), 404)
+    except Exception as e:
+        return make_response(jsonify({'message': 'error getting user', 'error': str(e)}), 500)
+    
 
